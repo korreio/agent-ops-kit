@@ -1,0 +1,116 @@
+{
+  "permissions": {
+    "deny": [
+      "Read(**/.env)",
+      "Read(**/.env.*)",
+      "Read(!**/.env*.example)",
+      "Read(!**/.env*.sample)",
+      "Read(!**/.env*.template)",
+      "Read(!**/.env*.dist)",
+      "Read(**/key.properties)",
+      "Read(**/*.jks)",
+      "Read(**/*.keystore)",
+      "Read(**/*.p8)",
+      "Read(**/.ssh/**)",
+      "Read(~/.ssh/**)",
+      "Read(~/.codex/auth.json)",
+      "Read(~/.aws/**)",
+      "Read(~/.netrc)",
+      "Read(~/.npmrc)",
+      "Read(~/.pgpass)",
+      "Read(~/.config/gh/hosts.yml)",
+      "Read(**/.*_history)",
+      "Read(~/.*_history)",
+      "Read(**/fish_history)",
+      "Read(~/.local/share/fish/fish_history)",
+      "Read(**/credentials*.json)",
+      "Read(**/secrets*.json)",
+      "Read(**/password)",
+      "Read(**/*.pem)",
+      "Read(**/*.key)",
+      "Read(**/*.p12)",
+      "Read(**/*.pfx)",
+      "Edit(**/.env)",
+      "Edit(**/.env.*)",
+      "Edit(!**/.env*.example)",
+      "Edit(!**/.env*.sample)",
+      "Edit(!**/.env*.template)",
+      "Edit(!**/.env*.dist)",
+      "Edit(**/key.properties)",
+      "Edit(**/*.jks)",
+      "Edit(**/*.keystore)",
+      "Edit(**/*.p8)",
+      "Edit(**/.ssh/**)",
+      "Edit(~/.ssh/**)",
+      "Edit(~/.codex/auth.json)",
+      "Edit(~/.aws/**)",
+      "Edit(~/.netrc)",
+      "Edit(~/.npmrc)",
+      "Edit(~/.pgpass)",
+      "Edit(~/.config/gh/hosts.yml)",
+      "Edit(**/.*_history)",
+      "Edit(~/.*_history)",
+      "Edit(**/fish_history)",
+      "Edit(~/.local/share/fish/fish_history)",
+      "Edit(**/credentials*.json)",
+      "Edit(**/secrets*.json)",
+      "Edit(**/password)",
+      "Edit(**/*.pem)",
+      "Edit(**/*.key)",
+      "Edit(**/*.p12)",
+      "Edit(**/*.pfx)"
+    ]
+  },
+  "hooks": {
+    "PreToolUse": [
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME\"/.claude/hooks/brew-guards.sh"
+          },
+          {
+            "type": "command",
+            "command": "\"$HOME\"/.claude/hooks/secrets-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": "\"$HOME\"/.claude/hooks/git-staging-guard.sh"
+          },
+          {
+            "type": "command",
+            "command": "\"$HOME\"/.claude/hooks/outward-ask.sh"
+          },
+          {
+            "type": "command",
+            "command": "\"$HOME\"/.claude/hooks/worker-git.sh"
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "Edit|Write|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME\"/.claude/hooks/bash-syntax.sh"
+          }
+        ]
+      }
+    ],
+    "SessionStart": [
+      {
+        "matcher": "startup",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "\"$HOME\"/.claude/hooks/roster-freshness.sh",
+            "timeout": 5
+          }
+        ]
+      }
+    ]
+  }
+}

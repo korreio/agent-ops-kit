@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security policy
+    url: https://github.com/korreio/agent-ops-kit/blob/main/.github/SECURITY.md
+    about: Read the security policy before reporting a sensitive concern.

@@ -1,0 +1,21 @@
+name: Bug report
+description: Describe a reproducible component failure using synthetic data.
+title: "Bug: "
+body:
+  - type: markdown
+    attributes:
+      value: Do not include credentials, private paths, memories or real session records. Use the security policy for sensitive concerns.
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps and expected result
+      description: Name the component, kit revision and synthetic steps.
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Observed result and environment
+      description: Include macOS, shell, Python and provider versions when relevant. State whether the run used fixtures or a live provider.
+    validations:
+      required: true

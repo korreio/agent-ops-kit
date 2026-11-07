@@ -1,0 +1,19 @@
+# Private state and generated outputs never belong in this collection.
+.DS_Store
+__pycache__/
+*.pyc
+.venv/
+node_modules/
+.env
+.env.*
+*.jsonl
+*.log
+*.stderr
+*.local
+memory/projects/
+agent-orchestration/memory/projects/
+private/
+scratch/
+tmp/
+reports/
+.agent-ops-local/

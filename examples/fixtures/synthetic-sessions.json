@@ -1,0 +1,109 @@
+{
+  "kind": "authored synthetic example; no live agent execution",
+  "repositories": [
+    {
+      "name": "repo-alpha",
+      "contract": "Coordinator owns Git and the test runner. Writer owns app/banner.py only. A fresh reviewer reads the frozen change; an independent verifier checks claims before fixes. Keep notes and task state local.",
+      "task": {
+        "goal": "Dismiss a visible notice without starting a refresh.",
+        "owner": "coordinator-alpha",
+        "writer": "writer-alpha",
+        "paths": [
+          "app/banner.py"
+        ],
+        "acceptance": "Dismiss clears the notice and starts zero refreshes.",
+        "state": "checked",
+        "optional_lifecycle": "Warmboot-style task record shown only as an example; no installation required."
+      },
+      "code": "def dismiss(state):\n    return {**state, \"notice\": None}\n",
+      "tests": "from app.banner import dismiss\n\nstate = {\"notice\": \"Try again\", \"refreshes\": 0}\nresult = dismiss(state)\nassert result[\"notice\"] is None\nassert result[\"refreshes\"] == 0\nassert state[\"notice\"] == \"Try again\"\nprint(\"repo-alpha: PASS\")\n"
+    },
+    {
+      "name": "repo-beta",
+      "contract": "Coordinator owns Git. A named test owner runs checks. This repository uses a short local checklist, without a lifecycle tool. A worker edits only the assigned path; review claims need independent verification.",
+      "task": {
+        "goal": "Explain whether a lane finished the assigned review.",
+        "owner": "coordinator-beta",
+        "writer": "writer-beta",
+        "paths": [
+          "notes/outcome.md"
+        ],
+        "acceptance": "An exit-zero process with no final verdict remains incomplete.",
+        "state": "handover",
+        "optional_lifecycle": "None; local checklist only."
+      },
+      "note": "The first review process exited zero but supplied no accepted final verdict. It remains incomplete. Its partial output is preserved privately. A fresh replacement reviewer supplied the scoped finding, then an independent verifier checked it.\n"
+    }
+  ],
+  "resources": {
+    "git": {
+      "repo-alpha": "coordinator-alpha",
+      "repo-beta": "coordinator-beta"
+    },
+    "test_runner": "test-owner",
+    "hardware": "none"
+  },
+  "sessions": [
+    {
+      "id": "sample-incomplete",
+      "role": "reviewer",
+      "repository": "repo-alpha",
+      "process_exit": 0,
+      "final_verdict": null,
+      "coverage": [
+        "app/banner.py"
+      ],
+      "accepted": false,
+      "next": "fresh replacement review"
+    },
+    {
+      "id": "sample-replacement",
+      "role": "reviewer",
+      "repository": "repo-alpha",
+      "process_exit": 0,
+      "final_verdict": "FINDING",
+      "coverage": [
+        "app/banner.py"
+      ],
+      "accepted": true,
+      "claims": [
+        "dismiss-refresh"
+      ]
+    },
+    {
+      "id": "sample-verification",
+      "role": "verifier",
+      "repository": "repo-alpha",
+      "reviewer_session": false,
+      "claims": {
+        "dismiss-refresh": "CONFIRMED"
+      },
+      "evidence": "Synthetic baseline dismiss started a refresh; corrected dismiss clears only the notice."
+    },
+    {
+      "id": "sample-changed-review",
+      "role": "fresh-reviewer",
+      "repository": "repo-alpha",
+      "process_exit": 0,
+      "final_verdict": "CLEAN",
+      "coverage": [
+        "app/banner.py"
+      ],
+      "accepted": true,
+      "changed_scope_only": true
+    }
+  ],
+  "handover": {
+    "repo-alpha": {
+      "state": "checked",
+      "proof": "Synthetic dismissal assertions only",
+      "unproved": "Real user interface and live agent behavior"
+    },
+    "repo-beta": {
+      "state": "handover",
+      "next": "Use the preserved lane receipt to explain incomplete versus accepted review",
+      "unproved": "Actual provider completion"
+    }
+  },
+  "shared_rules": "Shared sample practice: one coordinator owns each repository Git lease; workers edit assigned paths only; name the test owner; process success is not review acceptance; an independent verifier checks each claim; handover names proof and limits."
+}

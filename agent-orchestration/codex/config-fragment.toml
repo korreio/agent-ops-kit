@@ -1,0 +1,88 @@
+# Tested roster row copies; the rest stays per Mac.
+model = "gpt-6.1-sol"
+model_reasoning_effort = "high"
+project_doc_max_bytes = 65536
+default_permissions = "development"
+approval_policy = "on-request"
+approvals_reviewer = "auto_review"
+
+[features]
+hooks = true
+multi_agent = true
+
+# A minimal literal denial list: paths and literal basenames, as macOS wildcard basenames deny
+# folder unlink/rename. A basename also denies a same-named folder.
+# Not literal, so unlike Claude not denied: *.pem *.key *.p8 *.p12 *.pfx *.jks *.keystore, other
+# .env.* credentials*.json secrets*.json .*_history. These rest on the secrets guard,
+# which does not stop python or other readers.
+# Left out: password (no file-only rule: it would deny @inquirer/password) and .env.test (test runs).
+[permissions.orchestration-base]
+extends = ":read-only"
+[permissions.orchestration-base.filesystem]
+":root" = "read"
+"~/.ssh" = "deny"
+"~/.aws" = "deny"
+"~/.codex/auth.json" = "deny"
+"~/.netrc" = "deny"
+"~/.npmrc" = "deny"
+"~/.pgpass" = "deny"
+"~/.config/gh/hosts.yml" = "deny"
+"~/.local/share/fish/fish_history" = "deny"
+"~/.zsh_history" = "deny"
+"~/.bash_history" = "deny"
+"~/.git-credentials" = "deny"
+"~/.docker/config.json" = "deny"
+"~/.kube" = "deny"
+"~/.gnupg" = "deny"
+"~/.config/gcloud" = "deny"
+"~/.pypirc" = "deny"
+"/**/.ssh" = "deny"
+"/**/.env" = "deny"
+"/**/.env.local" = "deny"
+"/**/.env.development" = "deny"
+"/**/.env.production" = "deny"
+"/**/.env.staging" = "deny"
+"/**/key.properties" = "deny"
+"/**/fish_history" = "deny"
+"/**/credentials.json" = "deny"
+"/**/secrets.json" = "deny"
+"/**/id_rsa" = "deny"
+"/**/id_ed25519" = "deny"
+"/**/id_ecdsa" = "deny"
+"/**/.git-credentials" = "deny"
+[permissions.orchestration-base.network]
+enabled = true
+
+# Experimental coordinator profile; root reads preserve CLI startup.
+[permissions.development]
+description = "Coordinator: reads the Mac; writes current workspace roots and temporary/session folders."
+extends = ":read-only"
+[permissions.development.filesystem]
+":root" = "read"
+":slash_tmp" = "write"
+":tmpdir" = "write"
+"~/.claude/session-env" = "write"
+[permissions.development.filesystem.":workspace_roots"]
+"." = "write"
+[permissions.development.network]
+enabled = true
+
+# network.enabled is command network access; this child key overrides the base through extends.
+[permissions.orchestration-review]
+description = "Independent read-only lane: literal denials, no command network."
+extends = "orchestration-base"
+[permissions.orchestration-review.network]
+enabled = false
+
+[permissions.orchestration-write]
+description = "Bounded worker edits in its working directory; Git stays read-only."
+extends = "orchestration-base"
+[permissions.orchestration-write.filesystem.":workspace_roots"]
+"." = "write"
+".git" = "read"
+".codex" = "read"
+".agents" = "read"
+[permissions.orchestration-write.filesystem]
+":slash_tmp" = "write"
+":tmpdir" = "write"
+"~/.claude/session-env" = "write"
