@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 # claude_job.sh — launch a headless Claude Code REVIEWER (`claude -p`, plan permission mode)
 # from any coordinating platform (Codex or Claude itself), detached, observable,
-# with a strict structured verdict and DISTINGUISHABLE exit classes. Verified 2026-08-22 on
-# Claude Code 2.1.220 (macOS).
+# with a strict structured verdict and DISTINGUISHABLE exit classes. First verified 2026-08-22 on
+# Claude Code 2.1.220 (macOS); live-checked again 2026-11-08 on 2.1.319: a review lane in an unseen
+# repository classified success with a valid schema verdict, project-config off, rules read by tools.
 # One script, two names on PATH (install.sh --bin links both), told apart by the name it is run by:
 #   claude-review   the reviewer, plan permission mode — and so is every other name, this file's
 #                   own included; built-in tools are restricted to Read, Grep and Glob
@@ -355,7 +356,7 @@ print("off unseen")
 # ---------------------------------------------------------------- normalize-only subcommand
 # Help first: the option loop below only runs after three positionals, so a bare `--help` would
 # otherwise die on a missing out-dir.
-case "${1:-}" in -h|--help) sed -n '2,185p' "$0"; exit 0;; esac
+case "${1:-}" in -h|--help) sed -n '2,186p' "$0"; exit 0;; esac
 if [ "${1:-}" = normalize ]; then
   [ $# -ge 4 ] || { echo "usage: $0 normalize <stream.jsonl> <final.json> <result.json> <rc> [short_ok] [cap] [schema]" >&2; exit 2; }
   exec python3 -I -B -c "$NORMALIZE_PY" "$2" "$3" "$4" "$5" "${6:-0}" "${7:-600}" "${8:-}"
@@ -424,7 +425,7 @@ while [ $# -gt 0 ]; do
     --project-config) project_on=1; shift;;
     --no-project-config) project_off=1; shift;;
     --wait) wait_flag=1; shift;;
-    -h|--help) sed -n '2,185p' "$0"; exit 0;;
+    -h|--help) sed -n '2,186p' "$0"; exit 0;;
     *) echo "unknown arg: $1" >&2; exit 2;;
   esac
 done
