@@ -3,7 +3,9 @@
 # codex-review (and this file's own name) selects an independent read-only lane;
 # codex-write selects a bounded workspace writer whose .git stays read-only.
 # Both share a minimal literal denial list, not a boundary. Native role files alone inherit the
-# parent's permissions, so use this launcher for strictly read-only roles.
+# parent's permissions, so use this launcher for strictly read-only roles. Live-checked 2026-11-08 on
+# Codex 0.167.0: a review lane in an unseen repository classified success with a valid schema
+# verdict, project-config off, and wrote no trust entry.
 #
 # Usage: <out-dir> <job-name> <brief-file> [--cwd DIR] [--add-dir DIR]... [--role ROLE]
 #   [--model MODEL] [--effort EFFORT] [--schema FILE] [--resume THREAD]

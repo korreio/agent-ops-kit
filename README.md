@@ -21,6 +21,8 @@ Each piece is deliberately small. Extend the roster, rules and hooks to fit your
 
 Designed and directed by Tiago Fonseca, with implementation and review assisted by coding agents.
 
+New here? The [three engineering lessons](docs/case-studies.md) show the problems this kit grew from, with checks you can run. The [changelog](CHANGELOG.md) lists what changed in each version.
+
 ## Try it
 
 Use documents alone: read [the short operating sequence](docs/design.md), adapt the [sample standing orders](agent-orchestration/standing-orders.md), and keep your repository's own contract authoritative. No installation or model call is needed.
@@ -81,6 +83,7 @@ The seven hermetic suites use fake providers and scratch homes. [Verification](d
 - [Adoption and recovery](docs/adoption.md): documents first, explicit installer targets, linked versus copied files.
 - [Memory and multiple Macs](docs/memory.md): external stores, conflict refusal and manual migration.
 - [Three engineering lessons](docs/case-studies.md): review completion, permission scope and process identity, with checks you can run.
+- [Changelog](CHANGELOG.md): what changed in each version, including the safety hardening before the first release.
 - [Maintenance](docs/maintenance.md), [contribution guidance](.github/CONTRIBUTING.md) and [security policy](.github/SECURITY.md).
 
 Read [contribution guidance](.github/CONTRIBUTING.md) when changing the kit.

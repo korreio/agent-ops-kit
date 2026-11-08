@@ -46,9 +46,13 @@ Recorded on 1 November 2026 with Claude Code 2.1.316 and Codex 0.166.0, using sy
 
 The Codex review lane's command network was off (`curl` failed) and the writer lane's was on. In a scratch home under `codex sandbox`, the review profile denied 11 planted files across its literal list and left `password`, `.env.test`, `.env.example` and an ordinary file readable, as configured. A repository's `"disableAllHooks": true` turned off a flag-supplied hook under native Claude loading. Negated template rules in the Claude deny list worked: `.env.example` was readable and `.env.local` denied.
 
+A further live check on 8 November 2026 ran each review launcher once in an unseen synthetic repository, on Claude Code 2.1.319 and Codex 0.167.0: both classified success with a schema-valid verdict, recorded `project-config` `off unseen`, read the repository rules with their tools, and Codex wrote no trust entry.
+
 ## Outsider runs
 
-Before these results, four outsider persona runs exercised commit `be4c5b2` on Claude Code: a newcomer, a security researcher, a team lead adopting and undoing the kit in a seeded home, and an open-source maintainer. They ran under an outer macOS Seatbelt boundary and with customizations off, proved with sentinels. The team lead's home returned byte-identical. One Codex run did the same kind of evaluation, but it does not count as context-clean: Codex loaded the owner's global instructions, and no supported option excludes them. Its filesystem boundary was enforced. The fixes above came after those runs; the outsider runs have not been repeated on this tree.
+On 1 November 2026, four outsider persona runs exercised an earlier commit on Claude Code: a newcomer, a security researcher, a team lead adopting and undoing the kit in a seeded home, and an open-source maintainer. They ran under an outer macOS Seatbelt boundary and with customizations off, proved with sentinels. The team lead's home returned byte-identical. One Codex run did the same kind of evaluation, but it does not count as context-clean: Codex loaded the owner's global instructions, and no supported option excludes them. Its filesystem boundary was enforced.
+
+On 7 November 2026, a newcomer and a security researcher ran again on a fresh clone of the published history, with the isolation re-proved on Claude Code 2.1.319. The newcomer found no defect; the researcher found no code-execution or injection defect and two guard gaps. Those gaps, and an independent review's `--timeout` finding, are fixed in this tree. The outsider runs have not been repeated after those fixes.
 
 ## Evidence limits
 

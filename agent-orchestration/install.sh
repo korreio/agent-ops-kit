@@ -97,7 +97,7 @@ if [ ${#CODEX_TARGETS[@]} -gt 0 ] && { [ $T_SKILLS$T_GLOBAL$T_RMMCP$T_CODEXMD$T_
 fi
 if [ "$MODE" = check ]; then T_SKILLS=1; T_GLOBAL=1; T_CODEXMD=1; T_BIN=1; T_AGENTS=1; T_HOOKS=1; T_RULES=1; fi
 if [ "$MODE" = apply ] && [ $T_SKILLS$T_GLOBAL$T_RMMCP$T_CODEXMD$T_BIN$T_AGENTS$T_HOOKS$T_RULES = 00000000 ] && [ ${#MEM_PATHS[@]} -eq 0 ] && [ ${#CODEX_TARGETS[@]} -eq 0 ]; then
-  echo "--apply needs at least one target: --skills --agents --hooks --rules --global-claude-md --codex-agents-md --bin --remove-codex-mcp --memory <path> (or --all)" >&2; exit 2
+  echo "--apply needs at least one target: --skills --agents --hooks --rules --global-claude-md --codex-agents-md --bin --remove-codex-mcp --memory <path> (or --all); native Codex targets, run on their own: --codex-agents --codex-hooks --codex-skills --codex-config --codex-coordinator" >&2; exit 2
 fi
 # Hook commands hard-code $HOME/.claude and $HOME/.codex, and this installer edits those homes. A
 # provider pointed elsewhere would never read what a target installs, and following the variable

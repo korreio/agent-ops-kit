@@ -4,7 +4,7 @@ The one place a model is named. Standing order 2 sends every role here; rules, s
 memory name roles only. Claude and Codex agent definitions, the Codex coordinator config copy and pinned launcher examples are copies
 of these rows, and `tests/test_roster.sh` fails when a copy differs.
 
-Last checked: 2026-10-27. These rows and owner notes show the author's dated sample configuration, not a recommendation or provider ranking.
+Last checked: 2026-11-08. These rows and owner notes show the author's dated sample configuration, not a recommendation or provider ranking.
 Native copies are checked by `tests/test_roster.sh`; a freshness notice after 14 days asks the
 owner to inspect available models. Recheck the selections before changing this date; installation alone does not refresh the evidence. Trial rows have limited historical evidence and remain
 replaceable. No kit fixture calls a paid model or validates provider availability.
