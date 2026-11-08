@@ -5,6 +5,7 @@ Experimental and macOS-focused. Versions are tags on `main`.
 ## 0.1.1 — 2026-11-08
 
 - Live-checked both review launchers on Claude Code 2.1.319 and Codex 0.167.0. The launcher headers, [compatibility](docs/compatibility.md) and [verification](docs/verification.md) record what passed.
+- Rechecked the sample roster on 8 November 2026: each Claude alias still resolves as listed and every Codex model named is still offered, so the freshness notice starts from that date.
 - `install.sh --apply` with no target now also lists the native Codex targets.
 - Added this changelog and a direct link to the [three engineering lessons](docs/case-studies.md); clarified which outsider runs came before which fixes.
 
